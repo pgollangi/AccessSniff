@@ -1,22 +1,24 @@
-# AccessSniff
-[![Build Status](https://travis-ci.org/yargalot/AccessSniff.svg?branch=master)](https://travis-ci.org/yargalot/AccessSniff)
+# AccessSniff Extended
+[![Build Status](https://travis-ci.org/prantlf/AccessSniff.svg?branch=master)](https://travis-ci.org/prantlf/AccessSniff)
 [![Build status](https://ci.appveyor.com/api/projects/status/r805fyyn6bpfr57y?svg=true)](https://ci.appveyor.com/project/yargalot/accesssniff)
-[![codecov](https://codecov.io/gh/yargalot/AccessSniff/branch/master/graph/badge.svg)](https://codecov.io/gh/yargalot/AccessSniff)
+[![codecov](https://codecov.io/gh/prantlf/AccessSniff/branch/combined/graph/badge.svg)](https://codecov.io/gh/prantlf/AccessSniff)
 
 
 A CLI, JsDom and PhantomJs library for HTML_CodeSniffer
 
-- [Gulp plugin](https://github.com/yargalot/gulp-accessibility)
-- [Grunt plugin](https://github.com/yargalot/grunt-accessibility)
+This fork writes the report, even if errors are detected in input files.
+
+- [Gulp plugin](https://github.com/prantlf/gulp-accessibility)
+- [Grunt plugin](https://github.com/prantlf/grunt-accessibility)
 
 ![Example Image](img/example.png)
 
 ## Getting Started
-Install this plugin with `npm install access-sniff --save`
+Install this plugin with `npm install access-sniff-ext --save`
 
 ### ES5
 ```js
-var AccessSniff = require('access-sniff');
+var AccessSniff = require('access-sniff-ext');
 
 AccessSniff
   .default(['**/*.html'], options)
@@ -27,7 +29,7 @@ AccessSniff
 
 ### ES6
 ```js
-import AccessSniff, { reports as AccessReports } from 'access-sniff';
+import AccessSniff, { reports as AccessReports } from 'access-sniff-ext';
 
 AccessSniff(['**/*.html'], options)
   .then(report => AccessReports(report, reportOptions));
@@ -36,7 +38,7 @@ AccessSniff(['**/*.html'], options)
 
 ### CLI
 ```
-npm install access-sniff -g
+npm install access-sniff-ext -g
 sniff test/**/*.html -r json -l reports
 ```
 
@@ -205,7 +207,7 @@ Set the value to where you want reports created
 Set a value to `false` to limit output
 
 ## CLI
-You can use the CLI component by installing it globally with `npm install -g access-sniff`
+You can use the CLI component by installing it globally with `npm install -g access-sniff-ext`
 
 ```cmd
 sniff test/**/*.html -r json -l reports

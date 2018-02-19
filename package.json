@@ -1,6 +1,6 @@
 {
-  "name": "access-sniff",
-  "version": "3.1.0",
+  "name": "access-sniff-ext",
+  "version": "4.0.0",
   "description": "A node/iojs library & CLI for HTML_Codesniffer",
   "main": "dist/",
   "bin": {
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://yargalot@github.com/yargalot/AccessSniff.git"
+    "url": "git+https://yargalot@github.com/prantlf/AccessSniff.git"
   },
   "author": "Steven John Miller (http://www.stevenjohnmiller.com/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yargalot/AccessSniff/issues"
+    "url": "https://github.com/prantlf/AccessSniff/issues"
   },
-  "homepage": "https://github.com/yargalot/AccessSniff",
+  "homepage": "https://github.com/prantlf/AccessSniff",
   "keywords": [
     "accessibility",
     "a11y",
