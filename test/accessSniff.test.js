@@ -48,11 +48,20 @@ exports.accessibilityTests = {
         ignore: [
           'WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl',
           'WCAG2A.Principle3.Guideline3_1.3_1_1.H57.2'
+        ],
+        ignoreByDescription: [
+          'Check that the title element describes the document.'
+        ],
+        ignoreByElement: [
+          /^<a id="herpDerp" class="[^"]*" href="test">Test<\/a>$/
         ]
       })
       .then(report => {
-        test.ok(Object.keys(report).length === 4, 'There should be 5 reports from an string input');
-        test.expect(1);
+        test.ok(Object.keys(report).length === 4, 'There should be 4 reports from a string input');
+        test.ok(report['./test/examples/test.html'], 'There should be ./test/examples/test.html checked');
+        var file = report['./test/examples/test.html']
+        test.ok(file.messageLog.length === 2, 'There should be 2 messages in the log');
+        test.expect(3);
         test.done();
       });
   },
@@ -63,11 +72,20 @@ exports.accessibilityTests = {
         ignore: [
           'WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl',
           'WCAG2A.Principle3.Guideline3_1.3_1_1.H57.2'
+        ],
+        ignoreByClass: [
+          /\bherp\b/
+        ],
+        ignoreById: [
+          'herpDerp'
         ]
       })
       .then(report => {
-        test.ok(Object.keys(report).length === 4, 'There should be 5 reports from an array input');
-        test.expect(1);
+        test.ok(Object.keys(report).length === 4, 'There should be 4 reports from an array input');
+        test.ok(report['./test/examples/test.html'], 'There should be ./test/examples/test.html checked');
+        var file = report['./test/examples/test.html']
+        test.ok(file.messageLog.length === 2, 'There should be 2 messages in the log');
+        test.expect(3);
         test.done();
       });
   },

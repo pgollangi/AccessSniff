@@ -4,22 +4,41 @@ import getElementPosition from '../helpers/getElementPosition';
 
 type optionObject = {
   ignore: Array<string>,
+  ignoreByDescription: Array,
+  ignoreByElement: Array,
+  ignoreByClass: Array,
+  ignoreById: Array,
   reportLevelsArray: Array<string>
 }
 
-const ignoredCheck = (ignoredRules: [], error: string): boolean => {
+const ignoredCheck = (ignore: [], error: string): boolean => {
   if (!error) {
     return false;
   }
 
-  return _.some(ignoredRules, rule => error.startsWith(rule));
+  return _.some(ignore, rule => error.startsWith(rule));
 };
 
-const buildMessage = (msg: string, fileContents: string, {ignore, reportLevelsArray}: optionObject) => {
+const ignoredCheckOther = (ignore: [], text: string): boolean => {
+  return !!text && _.some(ignore, expression => {
+    if (typeof expression === 'string') {
+      return expression === text;
+    }
+    return expression.test(text);
+  });
+};
+
+const buildMessage = (msg: string, fileContents: string,
+  {ignore, ignoreByDescription, ignoreByElement, ignoreByClass, ignoreById,
+  reportLevelsArray}: optionObject) => {
   const msgSplit = msg.split('|');
   let message;
 
-  const ignored = ignoredCheck(ignore, msgSplit[1]);
+  const ignored = ignoredCheck(ignore, msgSplit[1]) ||
+    ignoredCheckOther(ignoreByDescription, msgSplit[2]) ||
+    ignoredCheckOther(ignoreByElement, msgSplit[3]) ||
+    ignoredCheckOther(ignoreByClass, msgSplit[4]) ||
+    ignoredCheckOther(ignoreById, msgSplit[5]);
 
   if (ignored) {
     return message;
@@ -45,4 +64,4 @@ const buildMessage = (msg: string, fileContents: string, {ignore, reportLevelsAr
 
 };
 
-export { buildMessage as default, ignoredCheck };
+export { buildMessage as default, ignoredCheck, ignoredCheckOther };

@@ -1,4 +1,4 @@
-import { ignoredCheck } from './buildMessage';
+import { ignoredCheck, ignoredCheckOther } from './buildMessage';
 
 const Tests = {
   setUp: done => {
@@ -26,6 +26,30 @@ const Tests = {
     test.ok(checkedRule === false);
 
     test.expect(4);
+    test.done();
+  },
+  isRuleIgnoredByOther: test => {
+    const ignored = [
+      'This form field should be labelled in some way. Use the label element ' +
+      '(either with a "for" attribute or wrapped around the form field), or ' +
+      '"title", "aria-label" or "aria-labelledby" attributes as appropriate.',
+      /^This element has a role of "\w+" but does not have a name available to an accessibility API\. Valid names are: [^.]+\.$/
+    ];
+
+    let checkedRule;
+
+    checkedRule = ignoredCheckOther(ignored,
+      'This form field should be labelled in some way. Use the label element ' +
+      '(either with a "for" attribute or wrapped around the form field), or ' +
+      '"title", "aria-label" or "aria-labelledby" attributes as appropriate.');
+    test.ok(checkedRule === true);
+
+    checkedRule = ignoredCheckOther(ignored,
+      'This element has a role of "button" but does not have a name available ' +
+      'to an accessibility API. Valid names are: element content.');
+    test.ok(checkedRule === true);
+
+    test.expect(2);
     test.done();
   }
 };

@@ -74,7 +74,7 @@ You can create an .accessibilityrc file in your project to set options:
 }
 ```
 
-### Ignore
+### Ignore By Rule Identifier
 
 `ignore` is an array
 
@@ -92,6 +92,37 @@ options: {
 Rules will also match to remove and entire set.
 
 `WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1` will ignore `WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl`
+
+### Ignore By Other Information
+
+`ignoreByDescription`, `ignoreByElement`, `ignoreByClass` and `ignoreById`
+are arrays
+
+You can ignore rules by including their description, element content, CSS
+class or HTML ID in their full as string, or by including regular expression
+matching their textual value. This can be useful to ignore only some
+problem occurrences, which are "false positives", while retaining the other
+checks done by the same rule.
+
+```js
+options: {
+  ignoreByDescription: [
+    'This form field should be labelled in some way. Use the label element ' +
+    '(either with a "for" attribute or wrapped around the form field), or ' +
+    '"title", "aria-label" or "aria-labelledby" attributes as appropriate.',
+    /^This element has a role of "\w+" but does not have a name available to an accessibility API\. Valid names are: [^.]+\.$/
+  ],
+  ignoreByElement: [
+    /^<a id="herpDerp" class="[^"]*" href="test">Test<\/a>$/
+  ],
+  ignoreByClass: [
+    /\bcustom-checkbox\b/
+  ],
+  ignoreById: [
+    'select-all'
+  ]
+}
+```
 
 ### Verbose output
 
