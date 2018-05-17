@@ -1,5 +1,9 @@
 const defaultOptions = {
   ignore: [],
+  ignoreByDescription: [],
+  ignoreByElement: [],
+  ignoreByClass: [],
+  ignoreById: [],
   verbose: true,
   force: false,
   browser: false,
