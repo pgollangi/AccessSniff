@@ -9,7 +9,7 @@ import istanbul from 'gulp-istanbul';
 
 const srcFolder = './src';
 const distFolder = './dist';
-const HTMLCSFolder = './node_modules/html_codesniffer';
+const HTMLCSFolder = './node_modules/html_codesniffer-ext';
 
 
 gulp.task('clean', () =>
