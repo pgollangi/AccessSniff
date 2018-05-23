@@ -93,6 +93,23 @@ Rules will also match to remove and entire set.
 
 `WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1` will ignore `WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl`
 
+### Error levels
+
+`errorLevels` is an object
+
+```js
+  options: {
+    errorLevels: {
+      notice: false,
+      warning: false,
+      error: true
+    }
+  }
+```
+
+If an issue of a certain level is found and this level is flagged by `true`
+in `errorLevels`, validation will fail
+
 ### Verbose output
 
 `verbose` is a boolean
@@ -214,6 +231,11 @@ sniff test/**/*.html -r txt -l reports
 ```
 
 ### Options
+
+#### Error Levels
+`-e` or `-errorLevels`
+
+Combination of comma-delimited error, warning and notice.
 
 #### Report Type
 `-r` or `-reportType`

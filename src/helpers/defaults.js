@@ -4,6 +4,11 @@ const defaultOptions = {
   force: false,
   browser: false,
   domElement: true,
+  errorLevels: {
+    notice: false,
+    warning: false,
+    error: true
+  },
   reportLevels: {
     notice: true,
     warning: true,
