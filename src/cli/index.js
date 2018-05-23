@@ -45,7 +45,7 @@ exports.setup = function(cliOptions) {
     .run(program.args)
     .then(writeReport, result => {
       writeReport(result.reportLogs);
-      return Promise.reject(result.errorMessage);
+      process.exit(1);
     });
 
 };
