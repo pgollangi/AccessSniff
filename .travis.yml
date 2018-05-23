@@ -2,27 +2,14 @@ sudo: false
 language: node_js
 node_js:
 - '6'
-- '7'
 - '8'
-- '9'
+- '10'
 
 notifications:
-  email:
-    on_success: always
-    on_failure: always
+  email: false
 
 matrix:
   fast_finish: true
-
-deploy:
-  provider: npm
-  api_key:
-    secure: deowQmEb1PKVWN2A9tXSdyRaVO5tTd16oZqn7rc8VPid8o+JPy+2Iv4YnQPshXn1ToYbSpSndW0whhDPHON9hBYgdsNWIvUDEDtEx20ca+7NaafDdaY3cFWag+aGGs1OLak/u3JUSyspvzRjG0POi2WX5s8izW6RyIWT0cs6zxk=
-  email: steven.jmiller@gmail.com
-  on:
-    repo: yargalot/AccessSniff
-    branch: master
-    tags: true
 
 cache:
   directories:
@@ -36,6 +23,3 @@ before_install:
   - "if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then wget https://github.com/Medium/phantomjs/releases/download/v$PHANTOMJS_VERSION/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi"
   - "if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi"
   - "phantomjs --version"
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
