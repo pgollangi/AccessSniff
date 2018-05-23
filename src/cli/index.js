@@ -31,9 +31,7 @@ exports.setup = function(cliOptions) {
     options.force = true;
   }
 
-  if (program.quiet) {
-    options.verbose = false;
-  }
+  options.verbose = !program.quiet;
 
   function writeReport(reportData) {
     if (options.reportType || options.reportLocation) {
