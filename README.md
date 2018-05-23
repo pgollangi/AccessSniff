@@ -1,6 +1,5 @@
 # AccessSniff Extended
 [![Build Status](https://travis-ci.org/prantlf/AccessSniff.svg?branch=master)](https://travis-ci.org/prantlf/AccessSniff)
-[![Build status](https://ci.appveyor.com/api/projects/status/r805fyyn6bpfr57y?svg=true)](https://ci.appveyor.com/project/yargalot/accesssniff)
 [![codecov](https://codecov.io/gh/prantlf/AccessSniff/branch/combined/graph/badge.svg)](https://codecov.io/gh/prantlf/AccessSniff)
 
 
