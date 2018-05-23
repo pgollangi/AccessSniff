@@ -53,6 +53,7 @@ class ReportsGenerator {
 
     }
 
+    this.verbose = options.verbose;
   }
 
   reportJson(reports) {
@@ -76,7 +77,9 @@ class ReportsGenerator {
 
     fs.writeFileSync(filePath, report.output);
 
-    logger.finishedMessage(filePath);
+    if (this.verbose) {
+      logger.finishedMessage(filePath);
+    }
 
     return report.output;
   }
