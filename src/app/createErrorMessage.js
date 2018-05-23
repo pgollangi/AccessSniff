@@ -7,8 +7,11 @@ type issueObject = {
 }
 
 const CreateErrorMessage = (issueCount: issueObject): string => {
-  let errorString = issueCount.error > 1 ? 'errors' : 'error';
-  return `There was ${issueCount.error} ${errorString}`;
+  const { error, warning, notice } = issueCount;
+  let errorString = error === 1 ? 'error' : 'errors';
+  let warningString = warning === 1 ? 'warning' : 'warnings';
+  let noticeString = notice === 1 ? 'notice' : 'notices';
+  return `There were ${error} ${errorString}, ${warning} ${warningString} and ${notice} ${noticeString}`;
 };
 
 export { CreateErrorMessage as default };

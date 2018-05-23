@@ -22,7 +22,7 @@ export default class Accessibility {
 
   run(filesInput) {
     const files = Promise.resolve(filesInput);
-    const { verbose } = this.options;
+    const { verbose, errorLevels } = this.options;
 
     if (verbose) {
       logger.startMessage('Starting Accessibility tests');
@@ -34,16 +34,19 @@ export default class Accessibility {
       .then(reports => CreateReportsJson(reports))
       .then(({ reportLogs, totalIssueCount, AllReportsLintFree }) => {
         let errorMessage = CreateErrorMessage(totalIssueCount);
+        let reportError = totalIssueCount.error && errorLevels.error ||
+          totalIssueCount.warning && errorLevels.warning ||
+          totalIssueCount.notice && errorLevels.notice;
 
         if (verbose) {
           if (AllReportsLintFree) {
             logger.lintFree(filesInput.length);
-          } else if (totalIssueCount.error) {
+          } else if (reportError) {
             logger.generalError(errorMessage);
           }
         }
 
-        if (!this.options.force && totalIssueCount.error) {
+        if (!this.options.force && reportError) {
           return Promise.reject({
             errorMessage: errorMessage,
             reportLogs: reportLogs
