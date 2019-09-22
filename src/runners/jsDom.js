@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import jsdom from 'jsdom/lib/old-api';
+import { JSDOM, VirtualConsole } from 'jsdom';
 import Promise from 'bluebird';
 import validator from 'validator';
 
@@ -8,26 +8,15 @@ const scriptPath = path.join(__dirname, '../HTMLCS.min.js');
 
 const RunJsDomInstance = (file, accessibilityLevel) => {
   return new Promise((resolve, reject) => {
+    const htmlcs = fs.readFileSync(scriptPath, { encoding: 'utf-8' });
+    let promise;
     let messages = [];
-    const vConsole = jsdom.createVirtualConsole();
+    const vConsole = new VirtualConsole();
     const jsDomOptions = {
-      scripts: [scriptPath],
-      virtualConsole: vConsole,
-      done: (err, window) => {
-        if (err) {
-          reject(err);
-        }
-        window.HTMLCS_RUNNER.run(accessibilityLevel);
-      }
+      resources: 'usable',
+      runScripts: 'dangerously',
+      virtualConsole: vConsole
     };
-
-    if (validator.isURL(file)) {
-      reject('JsDom Cannot render urls, please set the browser option to true');
-    } else if (fs.existsSync(file)) {
-      jsDomOptions.file = file;
-    } else {
-      jsDomOptions.html = file;
-    }
 
     vConsole.on('log', (message) => {
       if (message === 'done') {
@@ -37,7 +26,20 @@ const RunJsDomInstance = (file, accessibilityLevel) => {
       }
     });
 
-    jsdom.env(jsDomOptions);
+    if (validator.isURL(file)) {
+      promise = JSDOM.fromURL(file, jsDomOptions);
+    } else if (fs.existsSync(file)) {
+      promise = JSDOM.fromFile(file, jsDomOptions);
+    } else {
+      promise = Promise.resolve(new JSDOM(file, jsDomOptions));
+    }
+
+    promise.then(dom => {
+      var script = dom.window.document.createElement('script');
+      script.textContent = htmlcs;
+      dom.window.document.head.appendChild(script);
+      dom.window.HTMLCS_RUNNER.run(accessibilityLevel);
+    }, reject);
   });
 };
 
