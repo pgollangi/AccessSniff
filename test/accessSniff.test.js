@@ -60,7 +60,7 @@ exports.accessibilityTests = {
         test.ok(Object.keys(report).length === 4, 'There should be 4 reports from a string input');
         test.ok(report['./test/examples/test.html'], 'There should be ./test/examples/test.html checked');
         var file = report['./test/examples/test.html']
-        test.ok(file.messageLog.length === 2, 'There should be 2 messages in the log');
+        test.ok(file.messageLog.length === 8, 'There should be 8 messages in the log');
         test.expect(3);
         test.done();
       });
@@ -84,7 +84,7 @@ exports.accessibilityTests = {
         test.ok(Object.keys(report).length === 4, 'There should be 4 reports from an array input');
         test.ok(report['./test/examples/test.html'], 'There should be ./test/examples/test.html checked');
         var file = report['./test/examples/test.html']
-        test.ok(file.messageLog.length === 2, 'There should be 2 messages in the log');
+        test.ok(file.messageLog.length === 8, 'There should be 8 messages in the log');
         test.expect(3);
         test.done();
       });
