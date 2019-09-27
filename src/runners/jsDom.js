@@ -38,7 +38,20 @@ const RunJsDomInstance = (file, accessibilityLevel) => {
       var script = dom.window.document.createElement('script');
       script.textContent = htmlcs;
       dom.window.document.head.appendChild(script);
-      dom.window.HTMLCS_RUNNER.run(accessibilityLevel);
+      return new Promise((resolve, reject) => {
+        var counter = 0;
+        var interval = dom.window.setInterval(() => {
+          if (dom.window.HTMLCS_RUNNER) {
+            dom.window.clearInterval(interval);
+            dom.window.HTMLCS_RUNNER.run(accessibilityLevel);
+            resolve();
+          }
+          if (++counter > 5 * 10) {
+            dom.window.clearInterval(interval);
+            reject(new Error('Waiting for HTML_CodeSniffer timed out.'));
+          }
+        }, 200);
+      });
     }, reject);
   });
 };
